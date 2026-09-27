@@ -1,0 +1,814 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Code Tutor & Bug Explainer</title>
+
+
+    <style>
+
+        /* =====================================================
+           BASIC EDITOR FIX
+        ====================================================== */
+
+        .real-code-editor {
+            display: block;
+            width: 100%;
+            height: 440px;
+            min-height: 440px;
+
+            box-sizing: border-box;
+
+            margin: 0;
+            padding: 20px;
+
+            border: none;
+            outline: none;
+
+            resize: none;
+
+            overflow: auto;
+
+            background: #0f172a;
+            color: #f8fafc;
+
+            font-family:
+                Consolas,
+                Monaco,
+                "Courier New",
+                monospace;
+
+            font-size: 15px;
+            line-height: 1.6;
+
+            white-space: pre;
+
+            tab-size: 4;
+
+            cursor: text;
+        }
+
+        .real-code-editor::placeholder {
+            color: #64748b;
+        }
+
+        .real-code-editor:focus {
+            outline: none;
+        }
+
+    </style>
+
+
+    <!-- =====================================================
+         YOUR EXISTING CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    &lt;/&gt;
+                </div>
+
+                <div class="brand-text">
+
+                    <strong>Code Tutor</strong>
+
+                    <span>
+                        AI Programming Assistant
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="nav-links">
+
+                <a href="#home">
+                    Home
+                </a>
+
+                <a href="#workspace">
+                    Workspace
+                </a>
+
+                <a href="#analysis">
+                    Analysis
+                </a>
+
+                <a href="#history">
+                    History
+                </a>
+
+                <a href="#tutor">
+                    AI Tutor
+                </a>
+
+            </div>
+
+
+            <div class="system-status">
+
+                <span class="status-dot"></span>
+
+                AI System Online
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         HOME
+    ====================================================== -->
+
+    <section id="home" class="hero">
+
+        <div class="hero-container">
+
+            <div class="hero-badge">
+                AI-Powered Programming Assistant
+            </div>
+
+
+            <h1>
+                Code.
+                <span>Understand.</span>
+                Improve.
+            </h1>
+
+
+            <p class="hero-description">
+
+                Write code, detect bugs, understand errors,
+                and learn programming with the help of AI.
+
+            </p>
+
+
+            <div class="hero-features">
+
+                <div class="hero-feature">
+
+                    <div class="feature-icon">
+                        ◈
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Code Analysis
+                        </strong>
+
+                        <span>
+                            Analyze your code
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-feature">
+
+                    <div class="feature-icon">
+                        ⚠
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Bug Detection
+                        </strong>
+
+                        <span>
+                            Find programming errors
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-feature">
+
+                    <div class="feature-icon">
+                        ✦
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            AI Tutor
+                        </strong>
+
+                        <span>
+                            Learn with AI
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-feature">
+
+                    <div class="feature-icon">
+                        ◷
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Code History
+                        </strong>
+
+                        <span>
+                            Keep track of your work
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         WORKSPACE
+    ====================================================== -->
+
+    <main id="workspace" class="workspace">
+
+        <div class="section-container">
+
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        WORKSPACE
+                    </span>
+
+                    <h2>
+                        Write and Analyze Code
+                    </h2>
+
+                    <p>
+                        Write your program and use AI
+                        to analyze, run and explain it.
+                    </p>
+
+                </div>
+
+
+                <div class="ready-status">
+
+                    <span></span>
+
+                    Ready
+
+                </div>
+
+            </div>
+
+
+
+            <div class="workspace-grid">
+
+
+                <!-- =================================================
+                     CODE EDITOR
+                ================================================== -->
+
+                <div class="workspace-card editor-card">
+
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <div class="card-title">
+                                Code Editor
+                            </div>
+
+                            <div class="card-subtitle">
+                                Write your program here
+                            </div>
+
+                        </div>
+
+
+                        <select
+                            id="language"
+                            class="language-select"
+                        >
+
+                            <option value="python">
+                                Python
+                            </option>
+
+                            <option value="c">
+                                C
+                            </option>
+
+                            <option value="cpp">
+                                C++
+                            </option>
+
+                            <option value="java">
+                                Java
+                            </option>
+
+                            <option value="javascript">
+                                JavaScript
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         REAL CODE EDITOR
+                    ================================================== -->
+
+                    <div class="code-editor-container">
+
+                        <div class="editor-topbar">
+
+                            <span class="editor-dot"></span>
+                            <span class="editor-dot"></span>
+                            <span class="editor-dot"></span>
+
+                            <span class="editor-file">
+                                main.code
+                            </span>
+
+                        </div>
+
+
+                        <textarea
+                            id="codeEditor"
+                            class="real-code-editor"
+                            placeholder="Write your code here..."
+                            spellcheck="false"
+                            autocomplete="off"
+                            autocorrect="off"
+                            autocapitalize="off"
+                        ></textarea>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         BUTTONS
+                    ================================================== -->
+
+                    <div class="editor-actions">
+
+                        <button
+                            type="button"
+                            id="clearBtn"
+                            class="btn btn-secondary"
+                        >
+                            Clear
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="sampleBtn"
+                            class="btn btn-secondary"
+                        >
+                            Sample Code
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="analyzeBtn"
+                            class="btn btn-primary"
+                        >
+                            ✦ Analyze Code
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="runBtn"
+                            class="btn btn-success"
+                        >
+                            ▶ Run Code
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="explainBtn"
+                            class="btn btn-primary"
+                        >
+                            Explain Code
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     AI ANALYSIS
+                ================================================== -->
+
+                <div
+                    class="workspace-card analysis-card"
+                    id="analysis"
+                >
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <div class="card-title">
+                                AI Analysis
+                            </div>
+
+                            <div class="card-subtitle">
+                                Understand your code
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="analysisContent"
+                        class="analysis-content"
+                    >
+
+                        <div class="empty-state">
+
+                            <div class="empty-icon">
+                                ✦
+                            </div>
+
+                            <h3>
+                                Ready to Analyze
+                            </h3>
+
+                            <p>
+                                Write some code and click
+                                <strong>Analyze Code</strong>
+                                to get AI-powered feedback.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =====================================================
+                 PROGRAM OUTPUT
+            ====================================================== -->
+
+            <div class="output-section">
+
+                <div class="output-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            PROGRAM OUTPUT
+                        </span>
+
+                        <h3>
+                            Terminal
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="output"
+                    class="terminal-output"
+                >
+
+                    <div class="output-empty">
+
+                        Run your program to see the output here.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =====================================================
+                 HISTORY
+            ====================================================== -->
+
+            <section
+                id="history"
+                class="history-section"
+            >
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            HISTORY
+                        </span>
+
+                        <h2>
+                            Code History
+                        </h2>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="refreshHistoryBtn"
+                        class="btn btn-secondary"
+                    >
+                        Refresh History
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="historyContent"
+                    class="history-content"
+                >
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            ◷
+                        </div>
+
+                        <h3>
+                            No History Yet
+                        </h3>
+
+                        <p>
+                            Your analyzed programs will
+                            appear here.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================================
+                 AI TUTOR
+            ====================================================== -->
+
+            <section
+                id="tutor"
+                class="tutor-section"
+            >
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            AI TUTOR
+                        </span>
+
+                        <h2>
+                            Ask Your AI Programming Tutor
+                        </h2>
+
+                        <p>
+                            Ask questions about programming,
+                            errors, concepts, or your code.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="tutor-card">
+
+
+                    <div
+                        id="chatMessages"
+                        class="chat-messages"
+                    >
+
+                        <div class="chat-message ai-message">
+
+                            <div class="message-avatar">
+                                AI
+                            </div>
+
+                            <div class="message-content">
+
+                                <p>
+                                    Hello! I'm your AI Programming
+                                    Tutor. Ask me anything about
+                                    programming.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="suggestion-buttons">
+
+                            <button
+                                type="button"
+                                class="suggestion-btn"
+                                onclick="
+                                    document.getElementById('chatInput').value='Explain Python loops';
+                                    document.getElementById('sendChatBtn').click();
+                                "
+                            >
+                                Explain Python loops
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="suggestion-btn"
+                                onclick="
+                                    document.getElementById('chatInput').value='What is a function in programming?';
+                                    document.getElementById('sendChatBtn').click();
+                                "
+                            >
+                                Explain functions
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="suggestion-btn"
+                                onclick="
+                                    document.getElementById('chatInput').value='How can I fix a syntax error?';
+                                    document.getElementById('sendChatBtn').click();
+                                "
+                            >
+                                Fix a syntax error
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="tutor-controls">
+
+                        <div class="tutor-mode-container">
+
+                            <label for="tutorMode">
+                                Tutor Mode
+                            </label>
+
+
+                            <select
+                                id="tutorMode"
+                                class="tutor-mode"
+                            >
+
+                                <option value="beginner">
+                                    Beginner
+                                </option>
+
+                                <option value="intermediate">
+                                    Intermediate
+                                </option>
+
+                                <option value="advanced">
+                                    Advanced
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <div class="chat-input-container">
+
+                            <textarea
+                                id="chatInput"
+                                placeholder="Ask your programming question..."
+                                rows="2"
+                            ></textarea>
+
+
+                            <button
+                                type="button"
+                                id="sendChatBtn"
+                                class="btn btn-primary"
+                            >
+                                Send
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <p>
+                AI Code Tutor & Bug Explainer
+            </p>
+
+            <p>
+                Built with Python, Flask and AI
+            </p>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script
+        src="{{ url_for('static', filename='script.js') }}"
+    ></script>
+
+
+</body>
+
+</html>
+```
